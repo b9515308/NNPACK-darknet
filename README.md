@@ -2,7 +2,7 @@
 The repo is based on https://github.com/Maratyszcza/NNPACK.git to do the modification.
 please refer the link for further details.
 
-Here is focusing on migrate NNPACK and darknet to Xilinx ZCU102 platform. 
+Here is focusing on the migration for NNPACK and darknet to Xilinx ZCU102 platform.
 
 ## Building
 
