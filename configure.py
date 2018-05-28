@@ -4,13 +4,13 @@
 import confu
 parser = confu.standard_parser()
 parser.add_argument("--backend", dest="backend", default="auto",
-                    choices=["auto", "psimd", "scalar"])
+                    choices=["auto", "psimd", "scalar", "arm"])
 
 
 def main(args):
     options = parser.parse_args(args)
-
     backend = options.backend
+    print  backend
     if backend == "auto":
         if options.target.is_x86_64:
             backend = "x86_64"
@@ -20,6 +20,10 @@ def main(args):
             backend = "scalar"
         else:
             backend = "psimd"
+
+
+    if backend =="arm":
+        options.target.is_arm = True
 
     build = confu.Build.from_options(options)
 
@@ -360,6 +364,9 @@ def main(args):
             reference_layer_objects + [build.cxx("softmax-output/smoke.cc")])
         build.unittest("softmax-output-imagenet-test",
             reference_layer_objects + [build.cxx("softmax-output/imagenet.cc")])
+
+
+    return build
 
     # Build benchmarking utilities
     with build.options(source_dir="bench", extra_include_dirs="bench", deps={
